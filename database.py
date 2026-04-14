@@ -1,13 +1,9 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from app.core.config import settings
+from config import config
 
-_engine_kwargs = {}
-if settings.database_url.startswith("sqlite"):
-    _engine_kwargs["connect_args"] = {"check_same_thread": False}
-
-engine = create_engine(settings.database_url, **_engine_kwargs)
+engine = create_engine(config.database_url)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
@@ -17,3 +13,4 @@ def get_db():
         yield db
     finally:
         db.close()
+ 
