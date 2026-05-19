@@ -36,6 +36,15 @@ def create_app() -> FastAPI:
     app = FastAPI(
         title="ExpenseHub",
         lifespan=lifespan,
+        docs_url="/swagger",
+        redoc_url="/redoc",
+        openapi_url="/swagger.json",
+        swagger_ui_parameters={
+            "defaultModelsExpandDepth": -1,
+            "docExpansion": "none",
+            "defaultModelRendering": "model",
+        },
+        swagger_ui_init_oauth={},
     )
     app.include_router(api_router)
 
